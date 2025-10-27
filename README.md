@@ -1,5 +1,7 @@
 # Blender-Expression-Baker
-Save a rest pose, then use any combination of bones + shapekeys to make an expression, then press a button to bake changes to your mesh as new shapekey
+Save a rest pose, then use any combination of bones + shapekeys to make an expression, then press a button to bake changes to your mesh as new shapekey.
+
+(This simplifies the process of creating expression shape keys when working with a combination of armatures + sculpting)
 
 # Guide
 1. In the 3D Viewport, press N to open the sidebar.
@@ -13,6 +15,7 @@ A dialog will pop up asking you to name the new shape key. Type in "Happy" and c
 It will compare the rest pose to the current pose and generate a new shape key based on the differences.
 
 Works instantly, and has minimal memory impact.
+
 Warning, it does not save rest pose information on closing of Blender. You can use keyframes to save expressions to prevent data loss in the event of a crash.
 
 <img width="333" height="100" alt="image" src="https://github.com/user-attachments/assets/6df3c206-e102-4e51-a877-0a22c8bc1e7d" />
