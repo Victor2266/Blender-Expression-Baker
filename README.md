@@ -12,7 +12,8 @@ Once you are satisfied with the expression, click "Create Expression Shape Key".
 A dialog will pop up asking you to name the new shape key. Type in "Happy" and click OK.
 It will compare the rest pose to the current pose and generate a new shape key based on the differences.
 
-Works instantly, has minimal memory impact, does not save rest pose information on closing of Blender.
+Works instantly, and has minimal memory impact.
+Warning, it does not save rest pose information on closing of Blender. You can use keyframes to save expressions to prevent data loss in the event of a crash.
 
 <img width="333" height="100" alt="image" src="https://github.com/user-attachments/assets/6df3c206-e102-4e51-a877-0a22c8bc1e7d" />
 <img width="331" height="115" alt="image" src="https://github.com/user-attachments/assets/f505b362-4a21-427d-ad6b-0b04a94b3927" />
