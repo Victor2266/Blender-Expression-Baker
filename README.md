@@ -1,6 +1,8 @@
 # Blender-Expression-Baker
-Save a rest pose, using bones + shapekeys to make expression, press button to bake as new shapekey
+Save a rest pose, then use any combination of bones + shapekeys to make an expression, then press a button to bake changes to your mesh as new shapekey
 
+Resources
+ Readme
 # Guide
 In the 3D Viewport, press N to open the sidebar.
 You will see a new tab called "Expression Baker". Click on it.
