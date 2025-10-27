@@ -1,7 +1,7 @@
 bl_info = {
     "name": "Expression Baker",
     "author": "Victor Do",
-    "version": (1, 1),
+    "version": (1, 2),
     "blender": (2, 80, 0),
     "location": "View3D > Sidebar > Expression Baker",
     "description": "Captures a rest pose and creates a clean expression shape key from the difference.",
@@ -95,28 +95,27 @@ class EXPRESSION_BAKER_OT_create_expression_key(bpy.types.Operator):
             
         new_key = obj.shape_key_add(name=self.new_shape_key_name, from_mix=False)
 
-        # --- Vectorized Calculation (Fast Method) ---
-
         # 1. Reshape flat arrays to (N, 3) arrays of vectors
+        # --- Vectorized Calculation ---
         rest_coords = rest_coords_flat.reshape(-1, 3)
         current_coords = current_coords_flat.reshape(-1, 3)
-
         # 2. Calculate the difference (delta) in world space for all vertices at once
         world_deltas = current_coords - rest_coords
-
         # 3. Get the inverse of the object's world matrix to transform deltas from world to local space
         #    We convert the Blender matrix to a NumPy array to solve the TypeError
         mat_world_to_local_3x3 = np.array(obj.matrix_world.inverted().to_3x3())
-
         # 4. Apply the transformation to all deltas in a single batch operation.
         #    (V @ M.T is the NumPy equivalent of M @ V for a batch of vectors V)
         local_deltas = world_deltas @ mat_world_to_local_3x3.T
 
-        # 5. Get the original Basis shape key coordinates
+        # 5. Get the first key by index (0) instead of by name
+        # This makes the script independent of the basis key's name.
+        basis_key = obj.data.shape_keys.key_blocks[0]
+        
         basis_coords_flat = np.empty(num_verts * 3, dtype=np.float32)
-        obj.data.shape_keys.key_blocks['Basis'].data.foreach_get("co", basis_coords_flat)
+        basis_key.data.foreach_get("co", basis_coords_flat)
         basis_coords = basis_coords_flat.reshape(-1, 3)
-
+        
         # 6. The new shape key's positions are the Basis positions plus the calculated local deltas
         final_coords = basis_coords + local_deltas
 
@@ -133,7 +132,7 @@ class EXPRESSION_BAKER_PT_panel(bpy.types.Panel):
     bl_idname = "OBJECT_PT_expression_baker"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
-    bl_category = 'Expression Baker' # Tab name
+    bl_category = 'Expression Baker'
 
     def draw(self, context):
         layout = self.layout

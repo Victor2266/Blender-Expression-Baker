@@ -11,5 +11,3 @@ Now, use your armature bones and any existing shape key sliders to create the de
 Once you are satisfied with the expression, click "Create Expression Shape Key".
 A dialog will pop up asking you to name the new shape key. Type in "Happy" and click OK.
 It will compare the rest pose to the current pose and generate a new shape key based on the differences.
-
-Your Basis shape key must be called Basis, some sources label it differently.
